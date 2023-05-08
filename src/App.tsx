@@ -1,7 +1,5 @@
-import React from "react";
 import {
   PaletteOptions,
-  useMediaQuery,
   createTheme,
   ThemeProvider,
   CssBaseline,
@@ -9,17 +7,26 @@ import {
 import AppRoutes from "./routes/AppRoutes";
 import { BrowserRouter } from "react-router-dom";
 import { NavigationBar } from "./components/NavigationBar";
+import React from "react";
+import { ColorModeContext } from "./Providers/ColorModeContext";
 
 export const lightPalette: PaletteOptions = {
   mode: "light",
-  primary: { main: "#1976d2", light: "#47a6ff", dark: "#0074e0" },
+  primary: {
+    main: "#78909c",
+    light: "#47a6ff",
+    dark: "#0074e0",
+  },
   secondary: { main: "#f23b8e", dark: "#ba0061", light: "#ff74be" },
   error: { main: "#eb0000", dark: "#c62828", light: "#ef5350" },
   warning: { main: "#ed6c02", light: "#ff9800", dark: "#e65100" },
   info: { main: "#0288d1", light: "#03a9f4", dark: "#01579b" },
   success: { main: "#2e7d32", light: "#4caf50", dark: "#1b5e20" },
   background: {
-    default: "#FAFAFA",
+    default: "#a5d6a7",
+  },
+  text: {
+    primary: "#000000",
   },
 };
 export const darkPalette: PaletteOptions = {
@@ -42,11 +49,19 @@ export const darkPalette: PaletteOptions = {
 };
 
 const App = () => {
-  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+  const [mode, setMode] = React.useState<"light" | "dark">("light");
+  const colorMode = React.useMemo(
+    () => ({
+      toggleColorMode: () => {
+        setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
+      },
+    }),
+    []
+  );
 
   const theme = React.useMemo(() => {
     return createTheme({
-      palette: prefersDarkMode ? darkPalette : lightPalette,
+      palette: mode === "light" ? lightPalette : darkPalette,
       typography: {
         fontFamily: '"Noto Sans", "Roboto", "Helvetica", "Arial", sans-serif',
         h1: {
@@ -124,16 +139,18 @@ const App = () => {
         },
       },
     });
-  }, [prefersDarkMode]);
+  }, [mode]);
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <BrowserRouter>
-        <NavigationBar />
-        <AppRoutes />
-      </BrowserRouter>
-    </ThemeProvider>
+    <ColorModeContext.Provider value={colorMode}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <BrowserRouter>
+          <NavigationBar />
+          <AppRoutes />
+        </BrowserRouter>
+      </ThemeProvider>
+    </ColorModeContext.Provider>
   );
 };
 

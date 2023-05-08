@@ -12,9 +12,14 @@ import {
   IconButton,
   Button,
   Drawer,
+  Theme,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import * as React from "react";
+import { useTheme } from "@mui/material/styles";
+import Brightness4Icon from "@mui/icons-material/Brightness4";
+import Brightness7Icon from "@mui/icons-material/Brightness7";
+import { ColorModeContext } from "../Providers/ColorModeContext";
 
 const drawerWidth = 240;
 const navItems = [
@@ -46,6 +51,8 @@ const navItems = [
 
 export const NavigationBar = () => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const theme = useTheme();
+  const colorMode = React.useContext(ColorModeContext);
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -65,6 +72,17 @@ export const NavigationBar = () => {
             </ListItemButton>
           </ListItem>
         ))}
+        <IconButton
+          sx={{ ml: 1 }}
+          onClick={colorMode.toggleColorMode}
+          color="inherit"
+        >
+          {theme.palette.mode === "dark" ? (
+            <Brightness7Icon />
+          ) : (
+            <Brightness4Icon />
+          )}
+        </IconButton>
       </List>
     </Box>
   );
@@ -90,16 +108,35 @@ export const NavigationBar = () => {
             variant="h6"
             component="div"
             noWrap={true}
-            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+            sx={{
+              flexGrow: 1,
+              display: { xs: "none", sm: "block" },
+              color: (theme: Theme) => theme.palette.text.primary,
+            }}
           >
             .:alittlefaun plush:.
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             {navItems.map((item) => (
-              <Button href={item.path} key={item.name}>
-                {item.name}
+              <Button
+                href={item.path}
+                key={item.name}
+                sx={{ color: (theme: Theme) => theme.palette.text.primary }}
+              >
+                <Typography variant="subtitle1">{item.name}</Typography>
               </Button>
             ))}
+            <IconButton
+              sx={{ ml: 1 }}
+              onClick={colorMode.toggleColorMode}
+              color="inherit"
+            >
+              {theme.palette.mode === "dark" ? (
+                <Brightness7Icon />
+              ) : (
+                <Brightness4Icon />
+              )}
+            </IconButton>
           </Box>
         </Toolbar>
       </AppBar>
