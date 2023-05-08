@@ -16,7 +16,14 @@ export const Commissions = () => {
   return (
     <>
       <Box sx={{ mx: "10vw" }}>
-        <Typography align="center" variant="h2" sx={{ py: 2 }}>
+        <Typography
+          align="center"
+          variant="h2"
+          sx={{
+            py: 2,
+            wordWrap: "break-word",
+          }}
+        >
           Commissions
         </Typography>
         <Typography variant="body2" sx={{ pb: 2 }}>
