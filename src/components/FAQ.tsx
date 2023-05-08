@@ -31,7 +31,7 @@ export const FAQ = () => {
                   }}
                 >
                   <ListItem>
-                    <Typography>
+                    <Typography variant="body2" color="text.primary">
                       Domestic Commissions (US) - In most cases, payment will be
                       through a PayPal Invoice. If you live in Texas or in a
                       state that I'm required to collect local sales tax, I'll
@@ -41,7 +41,7 @@ export const FAQ = () => {
                     </Typography>
                   </ListItem>
                   <ListItem>
-                    <Typography>
+                    <Typography variant="body2" color="text.primary">
                       International Commissions - I will create a private
                       listing on Etsy and send the link to you. The price quote
                       will be adjusted to account for Etsy fees.

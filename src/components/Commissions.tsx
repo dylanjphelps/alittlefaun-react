@@ -3,11 +3,10 @@ import {
   Typography,
   List,
   ListItem,
-  TableContainer,
-  Table,
-  TableRow,
-  TableCell,
-  TableBody,
+  Card,
+  CardMedia,
+  CardHeader,
+  CardContent,
 } from "@mui/material";
 
 import priceguide from "../assets/priceguide.json";
@@ -102,48 +101,38 @@ export const Commissions = () => {
           the amount of time I need invest into the process.
         </Typography>
 
-        <TableContainer>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
-            <TableBody>
-              {priceguide.map((item) => (
-                <TableRow
-                  key={item.name}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+        <Box sx={{ display: "Flex", flexWrap: "wrap", gap: 2, p: 1 }}>
+          {priceguide.map((item, index) => (
+            <Card variant="outlined" sx={{ maxWidth: 350 }} key={index}>
+              <CardHeader title={item.name} />
+              <CardMedia
+                component="img"
+                width={350}
+                image={item.image}
+                alt={item.name}
+              />
+              <CardContent>
+                <List
+                  sx={{
+                    listStyleType: "disc",
+                    pl: 2,
+                    "& .MuiListItem-root": {
+                      display: "list-item",
+                    },
+                  }}
                 >
-                  <TableCell component="th" scope="row">
-                    <Box
-                      component="img"
-                      src={item.image}
-                      alt={item.name}
-                      height="auto"
-                      width="100%"
-                    ></Box>
-                  </TableCell>
-                  <TableCell component="th" scope="row">
-                    <Typography variant="h6">{item.name}</Typography>
-                    <List
-                      sx={{
-                        listStyleType: "disc",
-                        pl: 2,
-                        "& .MuiListItem-root": {
-                          display: "list-item",
-                        },
-                      }}
-                    >
-                      {item.information.map((info, index) => (
-                        <ListItem key={index}>
-                          <Typography component="p" variant="body1">
-                            {info}
-                          </Typography>
-                        </ListItem>
-                      ))}
-                    </List>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+                  {item.information.map((info, index) => (
+                    <ListItem key={index}>
+                      <Typography component="p" variant="body1">
+                        {info}
+                      </Typography>
+                    </ListItem>
+                  ))}
+                </List>
+              </CardContent>
+            </Card>
+          ))}
+        </Box>
 
         <Typography variant="h4">Shipping</Typography>
         <Typography variant="body2">

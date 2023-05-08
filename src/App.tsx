@@ -24,6 +24,7 @@ export const lightPalette: PaletteOptions = {
   success: { main: "#2e7d32", light: "#4caf50", dark: "#1b5e20" },
   background: {
     default: "#a5d6a7",
+    paper: "#a5d6a7",
   },
   text: {
     primary: "#000000",

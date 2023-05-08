@@ -7,9 +7,19 @@ export const About = () => {
       <Typography align="center" variant="h2" sx={{ py: 2 }}>
         About Me
       </Typography>
-      <Grid container spacing={2} sx={{ px: "10vw", py: 4 }}>
-        <Grid item xs={6} md={8}>
-          <Typography variant="body1">
+      <Grid
+        container
+        columns={{ sx: 1 }}
+        spacing={2}
+        sx={{
+          px: "10vw",
+          py: 4,
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Grid item>
+          <Typography variant="body1" sx={{ maxWidth: 900 }}>
             I'm alittlefaun and am a small plush maker during the weekends! I
             really enjoy plush making because I can really flex my love of{" "}
             <b>creation</b> as well as create a bit more <b>happiness</b> into
@@ -27,12 +37,11 @@ export const About = () => {
             worry! (´・ω・｀)
           </Typography>
         </Grid>
-        <Grid item xs={6} md={4}>
+        <Grid item>
           <Box
             component="img"
             src={profile.image}
-            height="auto"
-            width="100%"
+            width={375}
             style={{ alignSelf: "center" }}
           ></Box>
         </Grid>

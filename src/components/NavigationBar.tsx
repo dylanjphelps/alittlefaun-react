@@ -6,7 +6,6 @@ import {
   ListItem,
   ListItemButton,
   ListItemText,
-  CssBaseline,
   AppBar,
   Toolbar,
   IconButton,
@@ -87,20 +86,20 @@ export const NavigationBar = () => {
     </Box>
   );
 
-  const container =
-    window !== undefined ? () => window.document.body : undefined;
-
   return (
-    <Box sx={{ display: "flex" }}>
-      <CssBaseline />
+    <>
       <AppBar component="nav">
-        <Toolbar>
+        <Toolbar sx={{ alignSelf: "center" }}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: "none" } }}
+            sx={{
+              mr: 2,
+              display: { sm: "none" },
+              color: (theme: Theme) => theme.palette.text.primary,
+            }}
           >
             <MenuIcon />
           </IconButton>
@@ -123,7 +122,7 @@ export const NavigationBar = () => {
                 key={item.name}
                 sx={{ color: (theme: Theme) => theme.palette.text.primary }}
               >
-                <Typography variant="subtitle1">{item.name}</Typography>
+                <Typography variant="h6">{item.name}</Typography>
               </Button>
             ))}
             <IconButton
@@ -142,7 +141,6 @@ export const NavigationBar = () => {
       </AppBar>
       <Box component="nav">
         <Drawer
-          container={container}
           variant="temporary"
           open={mobileOpen}
           onClose={handleDrawerToggle}
@@ -163,6 +161,6 @@ export const NavigationBar = () => {
       <Box component="main" sx={{ p: 3 }}>
         <Toolbar />
       </Box>
-    </Box>
+    </>
   );
 };

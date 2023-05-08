@@ -1,4 +1,4 @@
-import { Typography, Grid } from "@mui/material";
+import { Typography, Box, Card, CardMedia } from "@mui/material";
 import gallery from "../assets/gallery.json";
 
 export const Dashboard = () => {
@@ -17,18 +17,28 @@ export const Dashboard = () => {
         Please don't hesitate to message me if you have a character that you
         would like me to bring to life!
       </Typography>
-      <Grid container spacing={1} sx={{ px: "5vw" }} justifyContent="center">
+      <Box
+        sx={{
+          mx: "10vw",
+          display: "Flex",
+          flexWrap: "wrap",
+          gap: 2,
+          p: 1,
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
         {gallery.map((item, index) => (
-          <Grid item key={index}>
-            <img
-              src={item.image}
+          <Card variant="outlined" sx={{ maxWidth: 350 }} key={index}>
+            <CardMedia
+              component="img"
+              width={350}
+              image={item.image}
               alt={item.name}
-              loading="lazy"
-              style={{ width: "20vw" }}
             />
-          </Grid>
+          </Card>
         ))}
-      </Grid>
+      </Box>
     </>
   );
 };
