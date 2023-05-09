@@ -8,7 +8,6 @@ import AppRoutes from "./routes/AppRoutes";
 import { BrowserRouter } from "react-router-dom";
 import { NavigationBar } from "./components/NavigationBar";
 import React from "react";
-import { ColorModeContext } from "./Providers/ColorModeContext";
 
 export const lightPalette: PaletteOptions = {
   mode: "light",
@@ -50,19 +49,9 @@ export const darkPalette: PaletteOptions = {
 };
 
 const App = () => {
-  const [mode, setMode] = React.useState<"light" | "dark">("light");
-  const colorMode = React.useMemo(
-    () => ({
-      toggleColorMode: () => {
-        setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
-      },
-    }),
-    []
-  );
-
   const theme = React.useMemo(() => {
     return createTheme({
-      palette: mode === "light" ? lightPalette : darkPalette,
+      palette: lightPalette,
       typography: {
         fontFamily: '"Noto Sans", "Roboto", "Helvetica", "Arial", sans-serif',
         h1: {
@@ -140,18 +129,16 @@ const App = () => {
         },
       },
     });
-  }, [mode]);
+  }, []);
 
   return (
-    <ColorModeContext.Provider value={colorMode}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <BrowserRouter>
-          <NavigationBar />
-          <AppRoutes />
-        </BrowserRouter>
-      </ThemeProvider>
-    </ColorModeContext.Provider>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <BrowserRouter>
+        <NavigationBar />
+        <AppRoutes />
+      </BrowserRouter>
+    </ThemeProvider>
   );
 };
 
